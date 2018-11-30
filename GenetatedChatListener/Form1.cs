@@ -31,9 +31,10 @@ namespace GenetatedChatListener
             SpeakParser speakParser = new SpeakParser(commonTokenStream);
             speakParser.BuildParseTree = true;
             IParseTree tree = speakParser.chat();
-            MyListener l = new MyListener();
-            speakParser.line();        
-            output = l.line;
+            ParseTreeWalker walker = new ParseTreeWalker();
+            MyListener listener = new MyListener();
+            walker.Walk(listener, tree);
+            output = listener.line;         
             textBox1.Text = output;
         }
     }
